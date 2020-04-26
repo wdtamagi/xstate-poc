@@ -17,6 +17,12 @@ const Todos = () => {
         <button
           style={{ outline: "none" }}
           className="flex items-center rounded rounded-r-none font-bold"
+          onClick={() =>
+            send({
+              type: "NEWTODO.ADD",
+              value: todo,
+            })
+          }
         >
           <DownIcon />
         </button>

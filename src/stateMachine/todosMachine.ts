@@ -31,5 +31,16 @@ export const todosMachine = Machine<ITodosContext>({
         todo: (ctx, e) => e.value,
       }),
     },
+    "NEWTODO.ADD": {
+      actions: [
+        assign({
+          todos: (ctx, e) =>
+            (ctx.todos = [...ctx.todos, { text: e.value, checked: false }]),
+        }),
+        assign({
+          todo: (ctx, e) => "",
+        }),
+      ],
+    },
   },
 });
