@@ -1,6 +1,59 @@
 import React from "react";
+import { useMachine } from "@xstate/react";
+import { todosMachine } from "../../stateMachine/todosMachine";
 import Todo from "./components/Todo/index";
 import Footer from "./components/Footer/index";
+
+const Todos = () => {
+  const [state, send] = useMachine(todosMachine);
+  const { todo, todos } = state.context;
+
+  const onChangeView = (view: string) => send(`SHOW.${view}`);
+  const anyTodoDone = todos.some((item) => item.checked);
+
+  return (
+    <div className="max-w-2xl rounded overflow-hidden shadow-lg mx-auto">
+      <div className="flex flex-row px-5 bg-gray-200">
+        <button
+          style={{ outline: "none" }}
+          className="flex items-center rounded rounded-r-none font-bold"
+        >
+          <DownIcon />
+        </button>
+        <input
+          style={{ outline: "none" }}
+          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 py-4 pl-4 leading-tight italic"
+          id="grid-last-name"
+          type="text"
+          placeholder="What do you need?"
+          onChange={(e) =>
+            send({
+              type: "NEWTODO.CHANGE",
+              value: e.target.value,
+            })
+          }
+          value={state.context.todo}
+        />
+      </div>
+      <ul>
+        {todos.map((item, index) => (
+          <Todo
+            key={`todo_${index}`}
+            text={item.text}
+            checked={item.checked}
+            onClick={() => null}
+          />
+        ))}
+      </ul>
+      <Footer
+        remaining={0}
+        activeView={state.value.toString()}
+        onChangeView={onChangeView}
+        anyTodoDone={anyTodoDone}
+      />
+    </div>
+  );
+};
 
 const DownIcon = () => {
   return (
@@ -33,46 +86,6 @@ const DownIcon = () => {
       <g></g>
       <g></g>
     </svg>
-  );
-};
-
-const Todos = () => {
-  return (
-    <div className="max-w-2xl rounded overflow-hidden shadow-lg mx-auto">
-      <div className="flex flex-row px-5 bg-gray-200">
-        <button
-          style={{ outline: "none" }}
-          className="flex items-center rounded rounded-r-none font-bold"
-        >
-          <DownIcon />
-        </button>
-        <input
-          style={{ outline: "none" }}
-          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 py-4 pl-4 leading-tight italic"
-          id="grid-last-name"
-          type="text"
-          placeholder="What do you need?"
-        />
-      </div>
-      <ul>
-        {[
-          { text: "teste", checked: false },
-          {
-            text:
-              "dsadsadasdsadsadasdsadsdsadsadsadasdasdsadsadsadasdsadasdsadas",
-            checked: true,
-          },
-        ].map((item, index) => (
-          <Todo
-            key={`todo_${index}`}
-            text={item.text}
-            checked={item.checked}
-            onClick={() => null}
-          />
-        ))}
-      </ul>
-      <Footer />
-    </div>
   );
 };
 
