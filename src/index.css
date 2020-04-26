@@ -5321,6 +5321,14 @@ video {
   opacity: 1;
 }
 
+.outline-none {
+  outline: 0;
+}
+
+.focus\:outline-none:focus {
+  outline: 0;
+}
+
 .overflow-auto {
   overflow: auto;
 }
@@ -13176,6 +13184,34 @@ video {
   transition-duration: 1000ms;
 }
 
+::-webkit-scrollbar {
+  /* 1 */
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+::-webkit-resizer {
+  background-color: transparent;
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;
@@ -17877,6 +17913,14 @@ video {
 
   .sm\:focus\:opacity-100:focus {
     opacity: 1;
+  }
+
+  .sm\:outline-none {
+    outline: 0;
+  }
+
+  .sm\:focus\:outline-none:focus {
+    outline: 0;
   }
 
   .sm\:overflow-auto {
@@ -30438,6 +30482,14 @@ video {
     opacity: 1;
   }
 
+  .md\:outline-none {
+    outline: 0;
+  }
+
+  .md\:focus\:outline-none:focus {
+    outline: 0;
+  }
+
   .md\:overflow-auto {
     overflow: auto;
   }
@@ -42997,6 +43049,14 @@ video {
     opacity: 1;
   }
 
+  .lg\:outline-none {
+    outline: 0;
+  }
+
+  .lg\:focus\:outline-none:focus {
+    outline: 0;
+  }
+
   .lg\:overflow-auto {
     overflow: auto;
   }
@@ -55554,6 +55614,14 @@ video {
 
   .xl\:focus\:opacity-100:focus {
     opacity: 1;
+  }
+
+  .xl\:outline-none {
+    outline: 0;
+  }
+
+  .xl\:focus\:outline-none:focus {
+    outline: 0;
   }
 
   .xl\:overflow-auto {
