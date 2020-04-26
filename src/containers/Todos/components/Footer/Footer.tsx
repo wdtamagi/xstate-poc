@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Footer = ({ remaining = 0 }) => {
+const Footer = ({ remaining = 0 }) => {
   const buttonClass =
     "bg-transparent hover:bg-gray-400 text-gray-600 font-semibold hover:text-white py-2 px-4 rounded";
 
@@ -24,3 +24,5 @@ export const Footer = ({ remaining = 0 }) => {
     </div>
   );
 };
+
+export default Footer;

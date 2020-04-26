@@ -1,6 +1,6 @@
 import React from "react";
-import { Todo } from "./components/todo";
-import { Footer } from "./components/footer";
+import Todo from "./components/Todo/index";
+import Footer from "./components/Footer/index";
 
 const DownIcon = () => {
   return (
@@ -36,7 +36,7 @@ const DownIcon = () => {
   );
 };
 
-export const Todos = () => {
+const Todos = () => {
   return (
     <div className="max-w-2xl rounded overflow-hidden shadow-lg mx-auto">
       <div className="flex flex-row px-5 bg-gray-200">
@@ -75,3 +75,5 @@ export const Todos = () => {
     </div>
   );
 };
+
+export default Todos;

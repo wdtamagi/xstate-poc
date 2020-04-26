@@ -25,7 +25,7 @@ interface ITodoProps {
   onClick: () => void;
 }
 
-export const Todo = ({ text, checked, onClick }: ITodoProps) => {
+const Todo = ({ text, checked, onClick }: ITodoProps) => {
   return (
     <li
       className="flex flex-row text-gray-600 bg-gray-200 px-5 py-2"
@@ -43,3 +43,5 @@ export const Todo = ({ text, checked, onClick }: ITodoProps) => {
     </li>
   );
 };
+
+export default Todo;

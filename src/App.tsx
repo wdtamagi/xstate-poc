@@ -1,5 +1,5 @@
 import React from "react";
-import { Todos } from "./containers/todos";
+import Todos from "./containers/Todos/index";
 
 function App() {
   return (
