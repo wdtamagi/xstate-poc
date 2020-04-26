@@ -40,11 +40,15 @@ export const Todos = () => {
   return (
     <div className="max-w-2xl rounded overflow-hidden shadow-lg mx-auto">
       <div className="flex flex-row px-5 bg-gray-200">
-        <button className="flex items-center rounded rounded-r-none font-bold focus:outline-none">
+        <button
+          style={{ outline: "none" }}
+          className="flex items-center rounded rounded-r-none font-bold"
+        >
           <DownIcon />
         </button>
         <input
-          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 py-4 pl-4 leading-tight italic focus:outline-none"
+          style={{ outline: "none" }}
+          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 py-4 pl-4 leading-tight italic"
           id="grid-last-name"
           type="text"
           placeholder="What do you need?"
@@ -58,8 +62,13 @@ export const Todos = () => {
               "dsadsadasdsadsadasdsadsdsadsadsadasdasdsadsadsadasdsadasdsadas",
             checked: true,
           },
-        ].map((item) => (
-          <Todo text={item.text} checked={item.checked} onClick={() => null} />
+        ].map((item, index) => (
+          <Todo
+            key={`todo_${index}`}
+            text={item.text}
+            checked={item.checked}
+            onClick={() => null}
+          />
         ))}
       </ul>
       <Footer />
