@@ -1,4 +1,5 @@
 import React from "react";
+import { ITodo } from "../../../../stateMachine/todosMachine";
 
 const checkClasses = "fill-current text-gray-500 m-auto h-5 w-5";
 const UnChecked = () => {
@@ -17,20 +18,20 @@ const Checked = () => {
 };
 
 interface ITodoProps {
-  /** The text inside the button */
-  text: string;
-  /** The checked state */
-  checked: boolean;
+  /** The todo object */
+  todo: ITodo;
   /** The handler to control checked state */
-  onClick: () => void;
+  onClick: (todo: ITodo) => void;
 }
 
-const Todo = ({ text, checked, onClick }: ITodoProps) => {
+const Todo = ({ todo, onClick }: ITodoProps) => {
+  const { checked, text } = todo;
+
   return (
     <li
-      className="flex flex-row text-gray-600 bg-gray-200 px-5 py-2"
+      className="flex flex-row items-center text-gray-600 bg-gray-200 px-5 py-2"
       style={{ borderTop: "1px solid #bdc2ca5e" }}
-      onClick={onClick}
+      onClick={() => onClick({ ...todo, checked: !checked })}
     >
       {checked ? <Checked /> : <UnChecked />}
       <span

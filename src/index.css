@@ -13185,31 +13185,16 @@ video {
 }
 
 ::-webkit-scrollbar {
-  /* 1 */
-}
-
-::-webkit-scrollbar-button {
-  display: none;
+  width: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-track-piece {
-  background-color: transparent;
+  background-color: #edf2f7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-corner {
-  background-color: transparent;
-}
-
-::-webkit-resizer {
-  background-color: transparent;
+  background: darkgray;
+  border-radius: 0.2rem;
 }
 
 @media (min-width: 640px) {

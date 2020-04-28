@@ -1,6 +1,6 @@
 import React from "react";
 import { useMachine } from "@xstate/react";
-import { todosMachine } from "../../stateMachine/todosMachine";
+import { todosMachine, ITodo } from "../../stateMachine/todosMachine";
 import Todo from "./components/Todo/index";
 import Footer from "./components/Footer/index";
 
@@ -10,6 +10,8 @@ const Todos = () => {
 
   const onChangeView = (view: string) => send(`SHOW.${view}`);
   const anyTodoDone = todos.some((item) => item.checked);
+  const handleOnTodoClick = (todo: ITodo) =>
+    send({ type: `TODO.UPDATE`, todo });
 
   return (
     <div className="max-w-2xl rounded overflow-hidden shadow-lg mx-auto">
@@ -38,16 +40,23 @@ const Todos = () => {
               value: e.target.value,
             })
           }
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              send({
+                type: "NEWTODO.ADD",
+                value: todo,
+              });
+            }
+          }}
           value={state.context.todo}
         />
       </div>
       <ul>
-        {todos.map((item, index) => (
+        {todos.map((item) => (
           <Todo
-            key={`todo_${index}`}
-            text={item.text}
-            checked={item.checked}
-            onClick={() => null}
+            key={`todo_${item.id}`}
+            todo={item}
+            onClick={handleOnTodoClick}
           />
         ))}
       </ul>

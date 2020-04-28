@@ -1,6 +1,8 @@
 import { Machine, assign } from "xstate";
+import { uuid } from "uuidv4";
 
-interface ITodo {
+export interface ITodo {
+  id: string;
   text: string;
   checked: boolean;
 }
@@ -34,11 +36,24 @@ export const todosMachine = Machine<ITodosContext>({
     "NEWTODO.ADD": {
       actions: [
         assign({
-          todos: (ctx, e) =>
-            (ctx.todos = [...ctx.todos, { text: e.value, checked: false }]),
+          todos: (ctx, e) => [
+            ...ctx.todos,
+            { id: uuid(), text: e.value, checked: false },
+          ],
         }),
         assign({
           todo: (ctx, e) => "",
+        }),
+      ],
+    },
+    "TODO.UPDATE": {
+      actions: [
+        assign({
+          todos: (ctx, e) => {
+            return ctx.todos.map((item) =>
+              item.id === e.todo.id ? e.todo : item
+            );
+          },
         }),
       ],
     },

@@ -24,7 +24,9 @@ const Footer = ({
 
   return (
     <div className="relative flex flex-row justify-between items-center px-5 py-4 bg-gray-200 text-gray-600 text-xs">
-      <span>{`${remaining} ${remaining > 1 ? "items" : "item"} left`}</span>
+      <span className="py-2">{`${remaining} ${
+        remaining > 1 ? "items" : "item"
+      } left`}</span>
       <div className="absolute h-full inset-0 m-0 p-0 text-center px-5 py-4">
         <button
           style={{ outline: "none" }}
