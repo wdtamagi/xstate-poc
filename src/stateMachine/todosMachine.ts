@@ -1,15 +1,14 @@
 import { Machine, assign } from "xstate";
 import { uuid } from "uuidv4";
-
-export interface ITodo {
-  id: string;
-  text: string;
-  checked: boolean;
-}
+import { ITodo } from "../containers/Todos/components/Todo/types";
 
 interface ITodosContext {
+  /** The todo adding object */
   todo: string;
+  /** The todo list */
   todos: Array<ITodo>;
+  /** The remaining todos count */
+  remaining: number;
 }
 
 export const todosMachine = Machine<ITodosContext>({
@@ -23,6 +22,7 @@ export const todosMachine = Machine<ITodosContext>({
   context: {
     todo: "",
     todos: [],
+    remaining: 0,
   },
   on: {
     "SHOW.all": ".all",
@@ -40,6 +40,7 @@ export const todosMachine = Machine<ITodosContext>({
             ...ctx.todos,
             { id: uuid(), text: e.value, checked: false },
           ],
+          remaining: (ctx, e) => ctx.remaining + 1,
         }),
         assign({
           todo: (ctx, e) => "",
@@ -54,6 +55,8 @@ export const todosMachine = Machine<ITodosContext>({
               item.id === e.todo.id ? e.todo : item
             );
           },
+          remaining: (ctx, e) =>
+            e.todo.checked ? ctx.remaining - 1 : ctx.remaining + 1,
         }),
       ],
     },
