@@ -1,5 +1,5 @@
 import React from "react";
-import { ITodo } from "../../../../stateMachine/todosMachine";
+import { IProps } from "./types";
 
 const checkClasses = "fill-current text-gray-500 m-auto h-5 w-5";
 const UnChecked = () => {
@@ -17,14 +17,7 @@ const Checked = () => {
   );
 };
 
-interface ITodoProps {
-  /** The todo object */
-  todo: ITodo;
-  /** The handler to control checked state */
-  onClick: (todo: ITodo) => void;
-}
-
-const Todo = ({ todo, onClick }: ITodoProps) => {
+const Todo = ({ todo, onClick }: IProps) => {
   const { checked, text } = todo;
 
   return (

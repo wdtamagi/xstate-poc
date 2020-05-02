@@ -1,12 +1,13 @@
 import React from "react";
 import { useMachine } from "@xstate/react";
-import { todosMachine, ITodo } from "../../stateMachine/todosMachine";
+import { todosMachine } from "../../stateMachine/todosMachine";
 import Todo from "./components/Todo/index";
+import { ITodo } from "./components/Todo/types";
 import Footer from "./components/Footer/index";
 
 const Todos = () => {
   const [state, send] = useMachine(todosMachine);
-  const { todo, todos } = state.context;
+  const { todo, todos, remaining } = state.context;
 
   const onChangeView = (view: string) => send(`SHOW.${view}`);
   const anyTodoDone = todos.some((item) => item.checked);
@@ -61,7 +62,7 @@ const Todos = () => {
         ))}
       </ul>
       <Footer
-        remaining={0}
+        remaining={remaining}
         activeView={state.value.toString()}
         onChangeView={onChangeView}
         anyTodoDone={anyTodoDone}
