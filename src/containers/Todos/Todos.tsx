@@ -5,9 +5,20 @@ import Todo from "./components/Todo/index";
 import { ITodo } from "./components/Todo/types";
 import Footer from "./components/Footer/index";
 
+const filterByState = (stateValue: any, todos: ITodo[]): ITodo[] => {
+  if (stateValue === "active") {
+    return todos.filter((todo: ITodo) => !todo.checked);
+  }
+  if (stateValue === "completed") {
+    return todos.filter((todo: ITodo) => todo.checked);
+  }
+  return todos;
+};
+
 const Todos = () => {
   const [state, send] = useMachine(todosMachine);
   const { todo, todos, remaining } = state.context;
+  const filteredTodos = filterByState(state.value, todos);
 
   const onChangeView = (view: string) => send(`SHOW.${view}`);
   const anyTodoDone = todos.some((item) => item.checked);
@@ -53,7 +64,7 @@ const Todos = () => {
         />
       </div>
       <ul>
-        {todos.map((item) => (
+        {filteredTodos.map((item) => (
           <Todo
             key={`todo_${item.id}`}
             todo={item}
