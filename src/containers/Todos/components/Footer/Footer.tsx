@@ -1,5 +1,6 @@
 import React from "react";
 import { IProps } from "./types";
+import { Show } from "../../types";
 
 const Footer = ({
   remaining,
@@ -32,21 +33,21 @@ const Footer = ({
         <button
           style={{ outline: "none" }}
           className={getButtonClass(activeView === "all")}
-          onClick={() => onChangeView("all")}
+          onClick={() => onChangeView(Show.all)}
         >
           All
         </button>
         <button
           style={{ outline: "none" }}
           className={getButtonClass(activeView === "active")}
-          onClick={() => onChangeView("active")}
+          onClick={() => onChangeView(Show.active)}
         >
           Active
         </button>
         <button
           style={{ outline: "none" }}
           className={getButtonClass(activeView === "completed")}
-          onClick={() => onChangeView("completed")}
+          onClick={() => onChangeView(Show.completed)}
         >
           Completed
         </button>

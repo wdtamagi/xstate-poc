@@ -1,3 +1,5 @@
+import { Show } from "../../types";
+
 export interface IOptionalProps {}
 
 export interface IProps extends Partial<IOptionalProps> {
@@ -6,7 +8,7 @@ export interface IProps extends Partial<IOptionalProps> {
   /** The active view */
   activeView: string;
   /** The handler to control active view */
-  onChangeView: (view: string) => void;
+  onChangeView: (view: Show) => void;
   /** The control for clear button */
   anyTodoDone: boolean;
 }
