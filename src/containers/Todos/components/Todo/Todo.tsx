@@ -1,5 +1,8 @@
 import React from "react";
+import { useMachine } from "@xstate/react";
+
 import { IProps } from "./types";
+import { todoMachine } from "../../../../stateMachine/todoMachine/todoMachine";
 
 const checkClasses = "fill-current text-gray-500 m-auto h-5 w-5";
 const UnChecked = () => {
@@ -17,14 +20,30 @@ const Checked = () => {
   );
 };
 
-const Todo = ({ todo, onClick }: IProps) => {
-  const { checked, text } = todo;
+const Todo = ({ todo, onChange }: IProps) => {
+  const [state, send] = useMachine(
+    todoMachine
+      .withConfig({
+        actions: {
+          notifyChanged(ctx) {
+            onChange({
+              id: ctx.id,
+              text: ctx.text,
+              checked: !!ctx.checked,
+            });
+          },
+        },
+      })
+      .withContext(todo)
+  );
+
+  const { checked, text } = state.context;
 
   return (
     <li
       className="flex flex-row items-center text-gray-600 bg-gray-200 px-5 py-2"
       style={{ borderTop: "1px solid #bdc2ca5e" }}
-      onClick={() => onClick({ ...todo, checked: !checked })}
+      onClick={() => send("TOGGLE_CHECK")}
     >
       {checked ? <Checked /> : <UnChecked />}
       <span
