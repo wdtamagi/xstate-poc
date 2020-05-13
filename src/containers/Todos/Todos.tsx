@@ -1,6 +1,8 @@
 import React from "react";
 import { useMachine } from "@xstate/react";
-import { todosMachine } from "../../stateMachine/todosMachine";
+
+import { Show } from "./types";
+import { todosMachine } from "../../stateMachine/todosMachine/todosMachine";
 import Todo from "./components/Todo/index";
 import { ITodo } from "./components/Todo/types";
 import Footer from "./components/Footer/index";
@@ -15,12 +17,35 @@ const filterByState = (stateValue: any, todos: ITodo[]): ITodo[] => {
   return todos;
 };
 
+const getTodos = (): Array<any> => {
+  try {
+    return JSON.parse(localStorage.getItem("todos") || "") || [];
+  } catch (error) {
+    return [];
+  }
+};
+
 const Todos = () => {
-  const [state, send] = useMachine(todosMachine);
+  const [state, send] = useMachine(
+    todosMachine
+      .withConfig({
+        actions: {
+          updateLocalStorage: (ctx) => {
+            localStorage.setItem("todos", JSON.stringify(ctx.todos));
+          },
+        },
+      })
+      .withContext({
+        todo: "",
+        todos: getTodos(),
+        remaining:
+          getTodos().length - getTodos().filter((item) => item.checked).length,
+      })
+  );
   const { todo, todos, remaining } = state.context;
   const filteredTodos = filterByState(state.value, todos);
 
-  const onChangeView = (view: string) => send(`SHOW.${view}`);
+  const onChangeView = (view: Show) => send(view);
   const anyTodoDone = todos.some((item) => item.checked);
   const handleOnTodoClick = (todo: ITodo) =>
     send({ type: `TODO.UPDATE`, todo });
@@ -68,7 +93,7 @@ const Todos = () => {
           <Todo
             key={`todo_${item.id}`}
             todo={item}
-            onClick={handleOnTodoClick}
+            onChange={handleOnTodoClick}
           />
         ))}
       </ul>
